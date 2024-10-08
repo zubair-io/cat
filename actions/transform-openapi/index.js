@@ -15,7 +15,7 @@ async function run() {
 
     console.log("OpenAPI transformed successfully:", response.data);
   } catch (error) {
-    core.setFailed(`Error transforming OpenAPI: ${error.response ? error.response.data : error.message}`);
+    core.setFailed(`Error transforming OpenAPI: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
   }
 }
 
