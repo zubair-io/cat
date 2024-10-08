@@ -3,7 +3,7 @@
 This repository contains GitHub Actions that help automate publishing Postman Collections to the Public API Network. 
 You can use these actions to fetch a schema or Postman collection, transform an OpenAPI schema into a Postman collection, and update a Postman collection programmatically as part of your CI/CD workflows.
 
-![Uploading CleanShot 2024-10-08 at 14.31.03.gif…]()
+![Uploading CleanShot 2024-10-08 at 14.31.03.gif…](Github Action in use)
 
 ## Actions
 
