@@ -1,10 +1,9 @@
-Here’s a README for the repo, based on your description:
-
----
-
 # Postman Publish Action
 
-This repository contains GitHub Actions that help automate interactions with Postman collections and APIs. You can use these actions to fetch a schema or Postman collection, transform an OpenAPI schema into a Postman collection, and update a Postman collection programmatically as part of your CI/CD workflows.
+This repository contains GitHub Actions that help automate publishing Postman Collections to the Public API Network. 
+You can use these actions to fetch a schema or Postman collection, transform an OpenAPI schema into a Postman collection, and update a Postman collection programmatically as part of your CI/CD workflows.
+
+![Uploading CleanShot 2024-10-08 at 14.31.03.gif…]()
 
 ## Actions
 
