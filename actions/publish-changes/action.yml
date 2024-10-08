@@ -1,0 +1,15 @@
+name: "Publish Changes"
+description: "Fetches data from a source collection and updates a destination collection."
+inputs:
+  postman_api_key:
+    description: "Your Postman API Key"
+    required: true
+  source_collection_id:
+    description: "Source Collection ID"
+    required: true
+  destination_collection_id:
+    description: "Destination Collection ID"
+    required: true
+runs:
+  using: "node16"
+  main: "index.js"
