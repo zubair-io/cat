@@ -1,26 +1,22 @@
 const core = require('@actions/core');
-const axios = require('axios');
-//TODO: add ability to go from Postman collection to OpenAPI schema
-//const { transpile } = require("postman2openapi");
+const fs = require('fs');
+var Converter = require('openapi-to-postmanv2')
+const path = process.env.GITHUB_ENV;
 
 async function run() {
-  try {
-    const apiKey = core.getInput('postman_api_key');
     const openapiSchema = core.getInput('openapi_schema');
-    const openapi = transpile(collection);
-
-    //TODO: pass through options and allow for workspace to be passed in as URL parameter
-    const response = await axios.post(`https://api.getpostman.com/import/openapi`, {
-      type: "openapi:3",
-      input: openapiSchema
-    }, {
-      headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' }
-    });
-
-    console.log("OpenAPI transformed successfully:", response.data);
-  } catch (error) {
-    core.setFailed(`Error transforming OpenAPI: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
-  }
+    Converter.convert({ type: 'string', data: openapiSchema },
+        {}, (err, conversionResult) => {
+          if (!conversionResult.result) {
+            console.log('Could not convert', conversionResult.reason);
+          }
+          else {
+            fs.appendFileSync(path, `postman_collection=${conversionResult.output[0].data}\n`)
+            console.log(`postman collection: ${conversionResult.output[0].data}`)
+          }
+        }
+      );
+      
 }
 
 run();
