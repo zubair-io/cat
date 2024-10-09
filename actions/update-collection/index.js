@@ -11,9 +11,9 @@ async function run() {
       headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' }
     });
 
-    console.log("Collection updated successfully:", response.data);
+    console.log("Collection updated successfully:", JSON.stringify(response.data));
   } catch (error) {
-    core.setFailed(`Error updating collection: ${error.response ? error.response.data : error.message}`);
+    core.setFailed(`Error updating collection: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
   }
 }
 
