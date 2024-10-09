@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const axios = require('axios');
 const fs = require('fs');
+const path = process.env.GITHUB_ENV;
 
 async function run() {
   try {
