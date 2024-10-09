@@ -12,8 +12,8 @@ async function run() {
       headers: { 'X-Api-Key': apiKey }
     });
 
-    console.log("Collection fetched successfully:", response.data.collection);
-    fs.appendFileSync(path, `postman_collection=${response.data.collection}\n`)
+    console.log("Collection fetched successfully:", JSON.stringify(response.data.collection));
+    fs.appendFileSync(path, `postman_collection=${JSON.stringify(response.data.collection)}\n`)
 
   } catch (error) {
     core.setFailed(`Error fetching collection: ${error.response ? error.response.data : error.message}`);
