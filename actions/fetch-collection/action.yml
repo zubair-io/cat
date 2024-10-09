@@ -7,6 +7,9 @@ inputs:
   collection_id:
     description: "Postman Collection ID"
     required: true
+outputs: 
+  postman_collection:
+    description: "Fetched Postman Collection"
 runs:
   using: "node16"
   main: "index.js"

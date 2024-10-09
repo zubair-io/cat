@@ -1,0 +1,30 @@
+name: Test Postman Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-postman-actions:
+    runs-on: ubuntu-latest
+    env:
+      POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+      SOURCE_COLLECTION_ID: ${{ vars.SOURCE_COLLECTION_ID }}
+      DESTINATION_COLLECTION_ID: ${{ vars.DESTINATION_COLLECTION_ID }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+  
+      - name: Fetch Collection
+        uses: ./actions/fetch-collection
+        id: fetch
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          collection_id: ${{ vars.SOURCE_COLLECTION_ID }}
+
+      - name: Update Collection
+        uses: ./actions/update-collection
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          collection_id: ${{ vars.DESTINATION_COLLECTION_ID }}
+          collection_data: ${{steps.fetch.outputs.postman_collection}}

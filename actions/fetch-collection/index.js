@@ -11,6 +11,8 @@ async function run() {
     });
 
     console.log("Collection fetched successfully:", response.data.collection);
+    fs.appendFileSync(path, `postman_collection=${response.data.collection}\n`)
+
   } catch (error) {
     core.setFailed(`Error fetching collection: ${error.response ? error.response.data : error.message}`);
   }
