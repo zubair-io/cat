@@ -4,7 +4,7 @@ inputs:
   postman_api_key:
     description: "Your Postman API Key"
     required: true
-  destination_collection_id:
+  collection_id:
     description: "The Destination Collection ID"
     required: true
   collection_data:
