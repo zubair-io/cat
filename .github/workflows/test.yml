@@ -1,4 +1,4 @@
-name: Test Postman Actions
+name: Test Postman Publish
 
 on:
   workflow_dispatch:
@@ -14,29 +14,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Test Fetch Collection
-        uses: ./actions/fetch-collection
-        with:
-          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          collection_id: ${{ vars.SOURCE_COLLECTION_ID }}
-
-      - name: Test Update Collection
-        uses: ./actions/update-collection
-        with:
-          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          destination_collection_id: ${{ vars.UPDATE_COLLECTION_ID }}
-          collection_data: '{ "info": { "_postman_id": "beaa7f72-356e-4ca8-95cd-333cd4be4563", "name": "Test Update Collection", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json", "_exporter_id": "37385351", "_collection_link": "https://www.postman.com/public-api-network/9d2ce8d7-4924-4009-acde-f32b268f6da8/collection/37385351-beaa7f72-356e-4ca8-95cd-333cd4be4563?action=share&source=collection_link&creator=37385351" }, "item": [ { "name": "update this request", "request": { "method": "GET", "header": [] }, "response": [] } ] }'
-
+  
       - name: Test Publish Collection
         uses: ./actions/publish-changes
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           source_collection_id: ${{ vars.SOURCE_COLLECTION_ID }}
           destination_collection_id: ${{ vars.DESTINATION_COLLECTION_ID }}
-
-      - name: Test Transform OpenAPI
-        uses: ./actions/transform-openapi
-        with:
-          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          openapi_schema: '{ "openapi": "3.0.3", "info": { "title": "Spaceship API", "version": "1.0.0" }, "paths": { "/spaceships/{id}": { "get": { "summary": "Get spaceship data by ID", "parameters": [ { "name": "id", "in": "path", "required": true, "description": "ID of the spaceship", "schema": { "type": "string" } } ], "responses": { "200": { "description": "Successful response", "content": { "application/json": { "schema": { "type": "object", "properties": { "id": { "type": "string", "description": "The spaceship ID" }, "name": { "type": "string", "description": "Name of the spaceship" }, "model": { "type": "string", "description": "Model of the spaceship" } } } } } }, "404": { "description": "Spaceship not found" } } } } } }'
