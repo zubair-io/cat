@@ -5,7 +5,7 @@ async function run() {
   try {
     const apiKey = core.getInput('postman_api_key');
     const destinationCollectionId = core.getInput('destination_collection_id');
-    const collectionData = JSON.parse(core.getInput('collection_data'));
+    const collectionData = core.getInput('collection_data');
 
     const response = await axios.put(`https://api.getpostman.com/collections/${destinationCollectionId}`, { collection: collectionData }, {
       headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' }
