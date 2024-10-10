@@ -11,11 +11,8 @@ async function run() {
     const response = await axios.get(`https://api.getpostman.com/collections/${collectionId}`, {
       headers: { 'X-Api-Key': apiKey }
     });
-
-    console.log("Collection fetched successfully:", JSON.stringify(response.data.collection));
-    fs.appendFileSync(path, `postman_collection=${JSON.stringify(response.data.collection)}`)
+    
     core.setOutput('postman_collection', JSON.stringify(response.data.collection));
-
 
   } catch (error) {
     core.setFailed(`Error fetching collection: ${error.response ? error.response.data : error.message}`);
