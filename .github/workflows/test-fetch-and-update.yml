@@ -20,11 +20,11 @@ jobs:
         id: fetch
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          collection_id: ${{ vars.SOURCE_COLLECTION_ID }}
+          collection_id: ${{ vars.UPDATE_COLLECTION_ID }}
 
       - name: Update Collection
         uses: ./actions/update-collection
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          collection_id: ${{ vars.DESTINATION_COLLECTION_ID }}
+          collection_id: ${{ vars.UPDATE_COLLECTION_ID }}
           collection_data: ${{steps.fetch.outputs.postman_collection}}
