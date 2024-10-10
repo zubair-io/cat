@@ -5,7 +5,7 @@ async function run() {
   try {
     const apiKey = core.getInput('postman_api_key');
     const collectionId = core.getInput('collection_id');
-    const collectionData = core.getInput('collection_data');
+    const collectionData = JSON.parse(core.getInput('collection_data'));
     removeIds(collectionData);
 
 
