@@ -8,12 +8,15 @@ async function run() {
     const collectionData = JSON.parse(core.getInput('collection_data'));
     removeIds(collectionData);
 
+    console.log("Raw collection data from env:", JSON.stringify(collectionData));
+
 
     const response = await axios.put(`https://api.getpostman.com/collections/${collectionId}`, { 'collection': collectionData }, {
       headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' }
     });
 
     console.log("Collection updated successfully:", JSON.stringify(response.data));
+    
   } catch (error) {
     core.setFailed(`Error updating collection: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
   }
