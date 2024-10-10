@@ -1,0 +1,29 @@
+name: Test Postman Schema Publish 
+
+on:
+  workflow_dispatch:
+
+jobs:
+  schema-publish-update:
+    runs-on: ubuntu-latest
+    env:
+      POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+      UPDATE_COLLECTION_ID: ${{ vars.UPDATE_COLLECTION_ID }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+  
+      - name: Generate Schema 
+        uses: ./actions/transform-openapi
+        id: schema
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          openapi_schema: ${{ vars.OPEN_API_SCHEMA }}
+
+      - name: Update Collection
+        uses: ./actions/update-collection
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          collection_id: ${{ vars.UPDATE_COLLECTION_ID }}
+          collection_data: ${{steps.schema.outputs.postman_collection}}
