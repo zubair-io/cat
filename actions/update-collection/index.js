@@ -9,7 +9,7 @@ async function run() {
     removeIds(collectionData);
 
 
-    const response = await axios.put(`https://api.getpostman.com/collections/${collectionId}`, { collection: collectionData }, {
+    const response = await axios.put(`https://api.getpostman.com/collections/${collectionId}`, { 'collection': collectionData }, {
       headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' }
     });
 
