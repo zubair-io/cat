@@ -11,8 +11,7 @@ async function run() {
             console.log('Could not convert', conversionResult.reason);
           }
           else {
-            fs.appendFileSync(path, `postman_collection=${conversionResult.output[0].data}\n`)
-            console.log(`postman collection: ${conversionResult.output[0].data}`)
+            core.setOutput('postman_collection', JSON.stringify(conversionResult.output[0].data));
           }
         }
       );
