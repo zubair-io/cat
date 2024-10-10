@@ -14,7 +14,7 @@ async function run() {
 
     console.log("Collection fetched successfully:", JSON.stringify(response.data.collection));
     fs.appendFileSync(path, `postman_collection=${JSON.stringify(response.data.collection)}`)
-    core.setOutput('postman_collection', JSON.stringify(collectionData));
+    core.setOutput('postman_collection', JSON.stringify(response.data.collection));
 
 
   } catch (error) {
