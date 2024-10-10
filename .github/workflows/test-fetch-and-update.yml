@@ -8,8 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
-      SOURCE_COLLECTION_ID: ${{ vars.SOURCE_COLLECTION_ID }}
-      DESTINATION_COLLECTION_ID: ${{ vars.DESTINATION_COLLECTION_ID }}
+      UPDATE_COLLECTION_ID: ${{ vars.UPDATE_COLLECTION_ID }}
 
     steps:
       - name: Checkout code
