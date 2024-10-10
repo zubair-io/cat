@@ -5,13 +5,14 @@ async function run() {
   try {
     const apiKey = core.getInput('postman_api_key');
     const collectionId = core.getInput('collection_id');
-    const collectionData = JSON.parse(core.getInput('collection_data'));
-    removeIds(collectionData);
-
+    const collectionData = core.getInput('collection_data');
+    //removeIds(collectionData);
+    
+    console.log("Raw collection data from env:", collectionData);
     console.log("Raw collection data from env:", JSON.stringify(collectionData));
 
 
-    const response = await axios.put(`https://api.getpostman.com/collections/${collectionId}`, { 'collection': collectionData }, {
+    const response = await axios.put(`https://api.getpostman.com/collections/${collectionId}`, { 'collection': JSON.parse(collectionData) }, {
       headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' }
     });
 
