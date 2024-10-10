@@ -6,6 +6,8 @@ async function run() {
     const apiKey = core.getInput('postman_api_key');
     const destinationCollectionId = core.getInput('destination_collection_id');
     const collectionData = core.getInput('collection_data');
+    removeIds(destinationCollectionId);
+
 
     const response = await axios.put(`https://api.getpostman.com/collections/${destinationCollectionId}`, { collection: collectionData }, {
       headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' }
@@ -16,5 +18,23 @@ async function run() {
     core.setFailed(`Error updating collection: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
   }
 }
+
+const removeIds = (obj) => {
+  // Iterate over all keys in the object
+  for (const key in obj) {
+    // If the key is _postman_id, uid, or id, delete it
+    if (key === '_postman_id' || key === 'uid' || key === 'id') {
+      delete obj[key];
+    }
+    
+    // If the value is an object or array, recursively call removeIds
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      removeIds(obj[key]);
+    }
+  }
+};
+
+
+
 
 run();
