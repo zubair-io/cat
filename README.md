@@ -11,7 +11,7 @@ You can use these actions to fetch a schema or Postman collection, transform an 
 
    #### Inputs:
    - `postman_api_key`: Your Postman API key for authentication.
-   - `collection_uid`: The unique identifier of the Postman collection you want to retrieve.
+   - `collection_id`: The unique identifier of the Postman collection you want to retrieve.
 
    #### Example Usage:
    ```yaml
@@ -19,7 +19,7 @@ You can use these actions to fetch a schema or Postman collection, transform an 
      uses: stcalica/postman-publish-action@master
      with:
        postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-       collection_uid: 'your-collection-uid'
+       collection_id: 'your-collection-id'
    ```
 
 ### 2. **Transform OpenAPI to Postman Collection**
@@ -28,7 +28,7 @@ You can use these actions to fetch a schema or Postman collection, transform an 
    #### Inputs:
    - `postman_api_key`: Your Postman API key for authentication.
    - `openapi_schema_url`: The URL of the OpenAPI schema you want to transform into a Postman collection.
-   - `destination_collection_uid`: (Optional) If provided, this will be the UID of the Postman collection where the transformed schema will be stored.
+   - `destination_collection_id`: (Optional) If provided, this will be the UID of the Postman collection where the transformed schema will be stored.
 
    #### Example Usage:
    ```yaml
@@ -37,16 +37,32 @@ You can use these actions to fetch a schema or Postman collection, transform an 
      with:
        postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
        openapi_schema_url: 'https://api.example.com/openapi.yaml'
-       destination_collection_uid: 'your-collection-uid'
+       destination_collection_id: 'your-collection-uid'
    ```
 
-### 3. **Update Postman Collection**
+### 3. **Transform OpenAPI to Postman Collection from file**
+   This action converts an OpenAPI schema into a Postman collection. This is useful when you want to ensure your OpenAPI spec is synchronized with your Postman collection for testing or sharing purposes.
+
+   #### Inputs:
+   - `postman_api_key`: Your Postman API key for authentication.
+   - `openapi_schema_path`: (Optional) If provided, this will be the UID of the Postman collection where the transformed schema will be stored.
+
+   #### Example Usage:
+   ```yaml
+   - name: Transform OpenAPI to Postman Collection
+     uses: stcalica/postman-publish-action@master
+     with:
+       postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+       openapi_schema_path: './tests/cats.yaml'
+
+
+### 4. **Update Postman Collection**
    This action updates a destination Postman collection with the contents of another source collection. You can use this action to keep your collections in sync across environments or projects.
 
    #### Inputs:
    - `postman_api_key`: Your Postman API key for authentication.
-   - `source_collection_uid`: The UID of the source Postman collection.
-   - `destination_collection_uid`: The UID of the destination Postman collection that will be updated with the source's data.
+   - `source_collection_id`: The UID of the source Postman collection.
+   - `destination_collection_id`: The UID of the destination Postman collection that will be updated with the source's data.
 
    #### Example Usage:
    ```yaml
@@ -54,8 +70,8 @@ You can use these actions to fetch a schema or Postman collection, transform an 
      uses: stcalica/postman-publish-action@master
      with:
        postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-       source_collection_uid: 'source-collection-uid'
-       destination_collection_uid: 'destination-collection-uid'
+       source_collection_id: 'source-collection-id'
+       destination_collection_id: 'destination-collection-id'
    ```
 
 ## Usage in CI/CD
@@ -79,21 +95,21 @@ jobs:
         uses: stcalica/postman-publish-action@master
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          collection_uid: 'your-collection-uid'
+          collection_id: 'your-collection-uid'
 
       - name: Transform OpenAPI to Postman Collection
         uses: stcalica/postman-publish-action@master
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           openapi_schema_url: 'https://api.example.com/openapi.yaml'
-          destination_collection_uid: 'your-collection-uid'
+          destination_collection_id: 'your-collection-uid'
 
       - name: Update Postman Collection
         uses: stcalica/postman-publish-action@master
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          source_collection_uid: 'source-collection-uid'
-          destination_collection_uid: 'destination-collection-uid'
+          source_collection_id: 'source-collection-uid'
+          destination_collection_id: 'destination-collection-uid'
 ```
 
 ## Setup
