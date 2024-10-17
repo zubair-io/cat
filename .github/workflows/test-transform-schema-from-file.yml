@@ -1,0 +1,28 @@
+name: Test OpenAPI to Postman Collection from File
+
+on:
+  workflow_dispatch:
+
+jobs:
+  schema-transform:
+    runs-on: ubuntu-latest
+    env:
+      POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+      UPDATE_COLLECTION_ID: ${{ vars.UPDATE_COLLECTION_ID }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Transform OpenAPI to Postman Collection
+        uses: ./actions/transform-openapi-from-file
+        id: schema
+        with:
+          openapi_schema_path: './tests/cats.yaml'  
+          
+      - name: Update Postman Collection
+        uses: ./actions/update-collection
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          collection_id: ${{ vars.UPDATE_COLLECTION_ID }}
+          collection_data: ${{ steps.schema.outputs.postman_collection }}
