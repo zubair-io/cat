@@ -1,43 +1,43 @@
 openapi: 3.0.3
 info:
-  title: Cat Breeds API
-  description: Simple API to manage a collection of cat breeds.
+  title: Dog Breeds API
+  description: Simple API to manage a collection of dog breeds.
   version: 1.0.0
 servers:
-  - url: https://api.cats.com/v1
+  - url: https://api.dogs.com/v1
 paths:
   /breeds:
     get:
-      summary: Get list of cat breeds
+      summary: Get list of dog breeds
       operationId: getBreeds
       responses:
         '200':
-          description: A list of cat breeds
+          description: A list of dog breeds
           content:
-            application/json:
+            applidogion/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CatBreed'
+                  $ref: '#/components/schemas/dogBreed'
     post:
-      summary: Add a new cat breed
+      summary: Add a new dog breed
       operationId: addBreed
       requestBody:
         required: true
         content:
-          application/json:
+          applidogion/json:
             schema:
-              $ref: '#/components/schemas/CatBreedInput'
+              $ref: '#/components/schemas/dogBreedInput'
       responses:
         '201':
-          description: Cat breed created
+          description: dog breed created
           content:
-            application/json:
+            applidogion/json:
               schema:
-                $ref: '#/components/schemas/CatBreed'
+                $ref: '#/components/schemas/dogBreed'
   /breeds/{id}:
     get:
-      summary: Fetch a specific cat breed by ID
+      summary: Fetch a specific dog breed by ID
       operationId: getBreedById
       parameters:
         - name: id
@@ -47,15 +47,15 @@ paths:
             type: string
       responses:
         '200':
-          description: A single cat breed
+          description: A single dog breed
           content:
-            application/json:
+            applidogion/json:
               schema:
-                $ref: '#/components/schemas/CatBreed'
+                $ref: '#/components/schemas/dogBreed'
         '404':
-          description: Cat breed not found
+          description: dog breed not found
     put:
-      summary: Update a cat breed
+      summary: Update a dog breed
       operationId: updateBreed
       parameters:
         - name: id
@@ -66,20 +66,20 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          applidogion/json:
             schema:
-              $ref: '#/components/schemas/CatBreedInput'
+              $ref: '#/components/schemas/dogBreedInput'
       responses:
         '200':
-          description: Cat breed updated
+          description: dog breed updated
           content:
-            application/json:
+            applidogion/json:
               schema:
-                $ref: '#/components/schemas/CatBreed'
+                $ref: '#/components/schemas/dogBreed'
         '404':
-          description: Cat breed not found
+          description: dog breed not found
     delete:
-      summary: Delete a cat breed
+      summary: Delete a dog breed
       operationId: deleteBreed
       parameters:
         - name: id
@@ -89,13 +89,13 @@ paths:
             type: string
       responses:
         '204':
-          description: Cat breed deleted
+          description: dog breed deleted
         '404':
-          description: Cat breed not found
+          description: dog breed not found
 
 components:
   schemas:
-    CatBreed:
+    dogBreed:
       type: object
       properties:
         id:
@@ -103,23 +103,23 @@ components:
           example: "bengal-1234"
         name:
           type: string
-          example: "Bengal"
+          example: "Some Dog Like Bengal"
         origin:
           type: string
           example: "Asia"
         description:
           type: string
-          example: "The Bengal cat has a wild appearance with large spots and rosettes."
+          example: "The Bengal dog has a wild appearance with large spots and rosettes."
 
-    CatBreedInput:
+    dogBreedInput:
       type: object
       properties:
         name:
           type: string
-          example: "Siamese"
+          example: "Some dog like Siamese"
         origin:
           type: string
           example: "Thailand"
         description:
           type: string
-          example: "The Siamese is one of the first distinctly recognized breeds of Asian cats."
+          example: "The Siamese is one of the first distinctly recognized breeds of Asian dogs."
