@@ -1,126 +1,57 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: Cat Breeds API
-  description: Simple API to manage a collection of cat breeds.
+  title: Cat API
+  description: A simple API to manage cat data.
   version: 1.0.0
-servers:
-  - url: https://api.cats.com/v1
+
 paths:
-  /breeds:
+  /cats:
     get:
-      summary: Get list of cat breeds
-      operationId: getBreeds
+      summary: Get a list of all cats
       responses:
         '200':
-          description: A list of cat breeds
+          description: A list of cats.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CatBreed'
-    post:
-      summary: Add a new cat breed
-      operationId: addBreed
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CatBreedInput'
-      responses:
-        '201':
-          description: Cat breed created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CatBreed'
-  /breeds/{id}:
+                  $ref: '#/components/schemas/Cat'
+
+  /cats/{id}:
     get:
-      summary: Fetch a specific cat breed by ID
-      operationId: getBreedById
+      summary: Get a specific cat by ID
       parameters:
-        - name: id
-          in: path
-          required: true
+        - in: path
+          name: id
           schema:
             type: string
+          required: true
+          description: The ID of the cat to retrieve
       responses:
         '200':
-          description: A single cat breed
+          description: A single cat object.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CatBreed'
+                $ref: '#/components/schemas/Cat'
         '404':
-          description: Cat breed not found
-    put:
-      summary: Update a cat breed
-      operationId: updateBreed
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CatBreedInput'
-      responses:
-        '200':
-          description: Cat breed updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CatBreed'
-        '404':
-          description: Cat breed not found
-    delete:
-      summary: Delete a cat breed
-      operationId: deleteBreed
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: Cat breed deleted
-        '404':
-          description: Cat breed not found
+          description: Cat not found
 
 components:
   schemas:
-    CatBreed:
+    Cat:
       type: object
       properties:
         id:
           type: string
-          example: "bengal-1234"
+          description: The unique ID of the cat
         name:
           type: string
-          example: "Bengal"
-        origin:
+          description: The cat's name
+        breed:
           type: string
-          example: "Asia"
-        description:
-          type: string
-          example: "The Bengal cat has a wild appearance with large spots and rosettes."
-
-    CatBreedInput:
-      type: object
-      properties:
-        name:
-          type: string
-          example: "Siamese"
-        origin:
-          type: string
-          example: "Thailand"
-        description:
-          type: string
-          example: "The Siamese is one of the first distinctly recognized breeds of Asian cats."
-Text to speech button
+          description: The breed of the cat
+        age:
+          type: integer
+          description: The cat's age in years
